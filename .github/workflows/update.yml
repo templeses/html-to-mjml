@@ -1,0 +1,26 @@
+name: Upgrade
+on:
+  schedule:
+    - cron: '0 0 * * 0'
+  workflow_dispatch:
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.REPO_TOKEN }}
+      - uses: actions/setup-node@master
+      - name: install upgrade
+        run:  npm outdated | awk 'NR>1 {print $1"@"$4}' | xargs npm install -E
+      - name: install dependencies
+        run: npm install
+      - name: run tests
+        run: npm test
+      - uses: EndBug/add-and-commit@v9
+        with:
+          default_author: github_actions
+          message: 'Update to latest dependencies'

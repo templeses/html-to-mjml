@@ -1,22 +1,28 @@
 const cheerio = require('cheerio');
 
-const html = `<table>
-<tr>
-  <th>Company</th>
-  <th>Contact</th>
-  <th>Country</th>
-</tr>
-<tr>
-  <td>Alfreds Futterkiste</td>
-  <td>Maria Anders</td>
-  <td>Germany</td>
-</tr>
-<tr>
-  <td>Centro comercial Moctezuma</td>
-  <td>Francisco Chang</td>
-  <td>Mexico</td>
-</tr>
-</table>`
+
+const html = `<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      /* Add your styles here */
+    </style>
+  </head>
+  <body>
+    <table>
+      <tr>
+        <td>
+          <img src="logo.png" alt="Logo" />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>Hello, this is a sample email content.</p>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>`
 
 const $ = cheerio.load(html);
 

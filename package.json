@@ -1,15 +1,68 @@
 {
   "name": "html-to-mjml",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "0.0.1",
+  "description": "html to mjml translation library",
+  "source": "src/index.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "start": "node .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prepare": "husky install && parcel build",
+    "format": "prettier --write \"**/*.ts\" && eslint --fix lib/**/*.ts",
+    "lint": "eslint",
+    "test": "npm run format && npm run lint && jest test",
+    "test:dev": "jest --watchAll test",
+    "test:cov": "npm run format && npm run lint && jest --coverage",
+    "push": "npm run test && git push",
+    "deploy:major": "npm version major",
+    "deploy:minor": "npm version minor",
+    "deploy:patch": "npm version patch",
+    "deploy:push": "git push && git push --tags",
+    "preversion": "npm test",
+    "lint-staged": "lint-staged",
+    "commit": "git add . && cz"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "cheerio": "^1.0.0-rc.12"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "7.6.0",
+    "@parcel/packager-ts": "2.8.3",
+    "@parcel/transformer-typescript-types": "2.8.3",
+    "@types/faker": "6.6.9",
+    "@types/jest": "29.5.0",
+    "@types/node": "18.15.3",
+    "@typescript-eslint/eslint-plugin": "5.55.0",
+    "@typescript-eslint/parser": "5.55.0",
+    "commitizen": "4.2.5",
+    "cz-conventional-changelog": "3.3.0",
+    "cz-format-extension": "1.5.1",
+    "eslint": "8.36.0",
+    "eslint-config-standard": "17.0.0",
+    "eslint-plugin-import": "2.27.5",
+    "eslint-plugin-node": "11.1.0",
+    "eslint-plugin-promise": "6.1.1",
+    "husky": "8.0.1",
+    "jest": "29.2.0",
+    "lint-staged": "13.2.0",
+    "parcel": "2.8.3",
+    "prettier": "2.7.1",
+    "ts-jest": "29.0.5",
+    "typescript": "5.0.2"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "collectCoverageFrom": [
+      "lib/**/*.{ts,tsx}"
+    ],
+    "setupFiles": [
+      "jest-localstorage-mock"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-format-extension"
+    }
   }
 }
